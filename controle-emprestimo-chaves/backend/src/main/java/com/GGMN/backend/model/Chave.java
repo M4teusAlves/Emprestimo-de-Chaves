@@ -1,23 +1,35 @@
 package com.GGMN.backend.model;
 
 
-import org.springframework.data.annotation.Id;
+import java.io.Serializable;
+import java.util.UUID;
 
-public class Chave {
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import jakarta.annotation.Generated;
+
+@Document(collection = "chaves")
+public class Chave{
+	
 	@Id
 	private String id;
 	
-	private String stuacao;
+	private String nome;
+	
+	private String situacao;
 	
 	private boolean status;
 	
+
+	public Chave(String nome, String situacao, boolean status) {
+		this.nome = nome;
+		this.situacao = situacao;
+		this.status = status;
+	}
+	
 	public Chave() {
 		
-	}
-
-	public Chave(String stuacao, boolean status) {
-		this.stuacao = stuacao;
-		this.status = status;
 	}
 	
 	public String getId() {
@@ -27,16 +39,25 @@ public class Chave {
 	public void setId(String id) {
 		this.id = id;
 	}
-
-	public String getStuacao() {
-		return stuacao;
+	
+	public String getNome() {
+		return nome;
 	}
 
-	public void setStuacao(String stuacao) {
-		this.stuacao = stuacao;
+	
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public boolean isStatus() {
+	public String getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(String situacao) {
+		this.situacao = situacao;
+	}
+
+	public boolean getStatus() {
 		return status;
 	}
 
@@ -46,7 +67,7 @@ public class Chave {
 
 	@Override
 	public String toString() {
-		return "Chave [id=" + id + ", stuacao=" + stuacao + ", status=" + status + "]";
+		return "Chave [id=" + id + ", stuacao=" + situacao + ", status=" + status + "]";
 	}
 
 	

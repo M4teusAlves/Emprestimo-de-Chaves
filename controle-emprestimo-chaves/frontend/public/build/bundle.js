@@ -59,28 +59,8 @@ var app = (function () {
     function space() {
         return text(' ');
     }
-    function listen(node, event, handler, options) {
-        node.addEventListener(event, handler, options);
-        return () => node.removeEventListener(event, handler, options);
-    }
-    function prevent_default(fn) {
-        return function (event) {
-            event.preventDefault();
-            // @ts-ignore
-            return fn.call(this, event);
-        };
-    }
-    function attr(node, attribute, value) {
-        if (value == null)
-            node.removeAttribute(attribute);
-        else if (node.getAttribute(attribute) !== value)
-            node.setAttribute(attribute, value);
-    }
     function children(element) {
         return Array.from(element.childNodes);
-    }
-    function set_input_value(input, value) {
-        input.value = value == null ? '' : value;
     }
     function custom_event(type, detail, { bubbles = false, cancelable = false } = {}) {
         const e = document.createEvent('CustomEvent');
@@ -353,27 +333,12 @@ var app = (function () {
         dispatch_dev('SvelteDOMRemove', { node });
         detach(node);
     }
-    function listen_dev(node, event, handler, options, has_prevent_default, has_stop_propagation, has_stop_immediate_propagation) {
-        const modifiers = options === true ? ['capture'] : options ? Array.from(Object.keys(options)) : [];
-        if (has_prevent_default)
-            modifiers.push('preventDefault');
-        if (has_stop_propagation)
-            modifiers.push('stopPropagation');
-        if (has_stop_immediate_propagation)
-            modifiers.push('stopImmediatePropagation');
-        dispatch_dev('SvelteDOMAddEventListener', { node, event, handler, modifiers });
-        const dispose = listen(node, event, handler, options);
-        return () => {
-            dispatch_dev('SvelteDOMRemoveEventListener', { node, event, handler, modifiers });
-            dispose();
-        };
-    }
-    function attr_dev(node, attribute, value) {
-        attr(node, attribute, value);
-        if (value == null)
-            dispatch_dev('SvelteDOMRemoveAttribute', { node, attribute });
-        else
-            dispatch_dev('SvelteDOMSetAttribute', { node, attribute, value });
+    function set_data_dev(text, data) {
+        data = '' + data;
+        if (text.data === data)
+            return;
+        dispatch_dev('SvelteDOMSetData', { node: text, data });
+        text.data = data;
     }
     function validate_each_argument(arg) {
         if (typeof arg !== 'string' && !(arg && typeof arg === 'object' && 'length' in arg)) {
@@ -418,27 +383,29 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[0] = list[i];
+    	child_ctx[1] = list[i];
     	return child_ctx;
     }
 
-    // (62:4) {#each Listachaves as chave}
+    // (31:4) {#each Listachaves as chave}
     function create_each_block(ctx) {
     	let li;
-    	let t_value = /*chave*/ ctx[0].nome + "";
+    	let t_value = /*chave*/ ctx[1].nome + "";
     	let t;
 
     	const block = {
     		c: function create() {
     			li = element("li");
     			t = text(t_value);
-    			add_location(li, file, 62, 8, 1782);
+    			add_location(li, file, 31, 8, 1042);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
     			append_dev(li, t);
     		},
-    		p: noop,
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*Listachaves*/ 1 && t_value !== (t_value = /*chave*/ ctx[1].nome + "")) set_data_dev(t, t_value);
+    		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(li);
     		}
@@ -448,7 +415,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(62:4) {#each Listachaves as chave}",
+    		source: "(31:4) {#each Listachaves as chave}",
     		ctx
     	});
 
@@ -456,21 +423,10 @@ var app = (function () {
     }
 
     function create_fragment(ctx) {
-    	let h20;
+    	let h2;
     	let t1;
-    	let form;
-    	let label;
-    	let t2;
-    	let input;
-    	let t3;
-    	let button;
-    	let t5;
-    	let h21;
-    	let t7;
     	let ul;
-    	let mounted;
-    	let dispose;
-    	let each_value = /*Listachaves*/ ctx[1];
+    	let each_value = /*Listachaves*/ ctx[0];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -480,55 +436,24 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			h20 = element("h2");
-    			h20.textContent = "Inserir Nova Chave";
+    			h2 = element("h2");
+    			h2.textContent = "Todas as chaves:";
     			t1 = space();
-    			form = element("form");
-    			label = element("label");
-    			t2 = text("Nome:\n        ");
-    			input = element("input");
-    			t3 = space();
-    			button = element("button");
-    			button.textContent = "Inserir";
-    			t5 = space();
-    			h21 = element("h2");
-    			h21.textContent = "Todas as chaves:";
-    			t7 = space();
     			ul = element("ul");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
-    			add_location(h20, file, 48, 0, 1488);
-    			attr_dev(input, "type", "text");
-    			attr_dev(input, "class", "svelte-odl272");
-    			add_location(input, file, 53, 8, 1598);
-    			attr_dev(label, "class", "svelte-odl272");
-    			add_location(label, file, 51, 4, 1568);
-    			attr_dev(button, "type", "submit");
-    			attr_dev(button, "class", "svelte-odl272");
-    			add_location(button, file, 56, 4, 1662);
-    			add_location(form, file, 50, 0, 1517);
-    			add_location(h21, file, 59, 0, 1710);
-    			add_location(ul, file, 60, 0, 1736);
+    			add_location(h2, file, 28, 0, 967);
+    			add_location(ul, file, 29, 0, 994);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, h20, anchor);
+    			insert_dev(target, h2, anchor);
     			insert_dev(target, t1, anchor);
-    			insert_dev(target, form, anchor);
-    			append_dev(form, label);
-    			append_dev(label, t2);
-    			append_dev(label, input);
-    			set_input_value(input, /*chave*/ ctx[0].nome);
-    			append_dev(form, t3);
-    			append_dev(form, button);
-    			insert_dev(target, t5, anchor);
-    			insert_dev(target, h21, anchor);
-    			insert_dev(target, t7, anchor);
     			insert_dev(target, ul, anchor);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
@@ -536,23 +461,10 @@ var app = (function () {
     					each_blocks[i].m(ul, null);
     				}
     			}
-
-    			if (!mounted) {
-    				dispose = [
-    					listen_dev(input, "input", /*input_input_handler*/ ctx[3]),
-    					listen_dev(form, "submit", prevent_default(/*inserirChave*/ ctx[2]), false, true, false, false)
-    				];
-
-    				mounted = true;
-    			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*chave*/ 1 && input.value !== /*chave*/ ctx[0].nome) {
-    				set_input_value(input, /*chave*/ ctx[0].nome);
-    			}
-
-    			if (dirty & /*Listachaves*/ 2) {
-    				each_value = /*Listachaves*/ ctx[1];
+    			if (dirty & /*Listachaves*/ 1) {
+    				each_value = /*Listachaves*/ ctx[0];
     				validate_each_argument(each_value);
     				let i;
 
@@ -578,16 +490,10 @@ var app = (function () {
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(h20);
+    			if (detaching) detach_dev(h2);
     			if (detaching) detach_dev(t1);
-    			if (detaching) detach_dev(form);
-    			if (detaching) detach_dev(t5);
-    			if (detaching) detach_dev(h21);
-    			if (detaching) detach_dev(t7);
     			if (detaching) detach_dev(ul);
     			destroy_each(each_blocks, detaching);
-    			mounted = false;
-    			run_all(dispose);
     		}
     	};
 
@@ -605,39 +511,24 @@ var app = (function () {
     function instance($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('App', slots, []);
-    	let chave = { nome: "" };
+
+    	let chave = {
+    		nome: "",
+    		situacao: "disponivel",
+    		status: true
+    	};
 
     	//Lista para mostrar as chaves
     	let Listachaves = [];
 
-    	async function inserirChave(chave) {
-    		try {
-    			const response = await fetch("/chaves", {
-    				method: "POST",
-    				headers: { "Content-Type": "application/json" },
-    				body: JSON.stringify(chave)
-    			});
-
-    			if (response.ok) {
-    				console.log("Chave adicionada com sucesso!");
-
-    				//Atualizando a lista
-    				carregarChaves();
-    			} else {
-    				console.error("Erro ao adicionar a chave:", response.statusText);
-    			}
-    		} catch(error) {
-    			console.error("Erro ao adicionar a chave:", error);
-    		}
-    	}
-
     	async function carregarChaves() {
     		try {
-    			const response = await fetch("/chaves");
+    			const response = await fetch("http://localhost:8081/chaves"); // Adicione "http://" ao URL
 
     			if (response.ok) {
     				const chaves = await response.json();
-    				console.log(Listachaves);
+    				$$invalidate(0, Listachaves = chaves);
+    				console.log(chaves); // Mude para "chaves" em vez de "Listachaves"
     			} else {
     				console.error("Erro ao carregar as chaves:", response.statusText);
     			}
@@ -646,34 +537,25 @@ var app = (function () {
     		}
     	}
 
+    	carregarChaves();
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1.warn(`<App> was created with unknown prop '${key}'`);
     	});
 
-    	function input_input_handler() {
-    		chave.nome = this.value;
-    		$$invalidate(0, chave);
-    	}
-
-    	$$self.$capture_state = () => ({
-    		chave,
-    		Listachaves,
-    		inserirChave,
-    		carregarChaves
-    	});
+    	$$self.$capture_state = () => ({ chave, Listachaves, carregarChaves });
 
     	$$self.$inject_state = $$props => {
-    		if ('chave' in $$props) $$invalidate(0, chave = $$props.chave);
-    		if ('Listachaves' in $$props) $$invalidate(1, Listachaves = $$props.Listachaves);
+    		if ('chave' in $$props) $$invalidate(1, chave = $$props.chave);
+    		if ('Listachaves' in $$props) $$invalidate(0, Listachaves = $$props.Listachaves);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [chave, Listachaves, inserirChave, input_input_handler];
+    	return [Listachaves, chave];
     }
 
     class App extends SvelteComponentDev {

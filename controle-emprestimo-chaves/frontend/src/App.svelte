@@ -1,61 +1,30 @@
 <script>
     //Essa eh a tag script. Aqui serão adicionadas todas as lógicas necessárias ao projeto
     //Essa eh o objeto que vai receber todas as chaves
-    let chave = { nome: "" };
+    let chave = { nome: "",
+                  situacao: "disponivel",
+                  status: true};
     //Lista para mostrar as chaves
     let Listachaves = [];
 
-    async function inserirChave(chave) {
-        try {
-            const response = await fetch("/chaves", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(chave),
-            });
-
-            if (response.ok) {
-                console.log("Chave adicionada com sucesso!");
-                //Atualizando a lista
-                carregarChaves();
-            } else {
-                console.error(
-                    "Erro ao adicionar a chave:",
-                    response.statusText
-                );
-            }
-        } catch (error) {
-            console.error("Erro ao adicionar a chave:", error);
-        }
-    }
-
     async function carregarChaves() {
         try {
-            const response = await fetch("/chaves");
+            const response = await fetch("http://localhost:8081/chaves"); // Adicione "http://" ao URL
             if (response.ok) {
                 const chaves = await response.json();
-                console.log(Listachaves);
+                Listachaves = chaves
+                console.log(chaves); // Mude para "chaves" em vez de "Listachaves"
             } else {
-                console.error(
-                    "Erro ao carregar as chaves:",
-                    response.statusText
-                );
+                console.error("Erro ao carregar as chaves:", response.statusText);
             }
         } catch (error) {
             console.error("Erro ao carregar as chaves:", error);
         }
     }
+
+    carregarChaves()
+
 </script>
-
-<h2>Inserir Nova Chave</h2>
-
-<form on:submit|preventDefault={inserirChave}>
-    <label>
-        Nome:
-        <input type="text" bind:value={chave.nome} />
-    </label>
-
-    <button type="submit">Inserir</button>
-</form>
 
 <h2>Todas as chaves:</h2>
 <ul>
@@ -80,8 +49,7 @@
         background-color: rgb(229, 86, 4);
     }
 
-    label,
-    select {
+    label, select {
         display: block;
         margin-bottom: 10px;
         width: 30vw;

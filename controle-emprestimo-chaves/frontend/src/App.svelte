@@ -46,25 +46,36 @@
     }
 </script>
 
-<h2>Inserir Nova Chave</h2>
+    <main>
+    <h2>Inserir Nova Chave</h2>
 
-<form on:submit|preventDefault={inserirChave}>
-    <label>
-        Nome:
-        <input type="text" bind:value={chave.nome} />
-    </label>
+    <form on:submit|preventDefault={inserirChave}>
+        <label>
+            Nome:
+            <input type="text" bind:value={chave.nome} />
+        </label>
 
-    <button type="submit">Inserir</button>
-</form>
+        <button type="submit">Inserir</button>
+    </form>
 
-<h2>Todas as chaves:</h2>
-<ul>
-    {#each Listachaves as chave}
-        <li>{chave.nome}</li>
-    {/each}
-</ul>
+    <br>
+    <br>
+    
+    <h2>Todas as chaves:</h2>
+    <ul>
+        {#each Listachaves as chave}
+            <li>{chave.nome}</li>
+        {/each}
+    </ul>
+</main>
 
 <style>
+    main{
+        text-align: center;
+        justify-content: center;
+        display: block;
+        background-color: rgb(235, 228, 209);
+    }
     button {
         background-color: rgb(38, 87, 124);
         color: white;
@@ -80,18 +91,16 @@
         background-color: rgb(229, 86, 4);
     }
 
-    label,
-    select {
-        display: block;
-        margin-bottom: 10px;
-        width: 30vw;
+    label {
+        margin-bottom: 10vh;
+        font-family:Arial, Helvetica, sans-serif;
+        font-weight: bold;
     }
 
     input {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid rgb(180, 180, 179);
+        padding: 1vh;
+        margin: 3vh;
+        border: 3px solid rgb(38, 87, 124);
         border-radius: 4px;
     }
 </style>

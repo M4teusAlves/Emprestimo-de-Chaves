@@ -422,7 +422,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (62:4) {#each Listachaves as chave}
+    // (66:8) {#each Listachaves as chave}
     function create_each_block(ctx) {
     	let li;
     	let t_value = /*chave*/ ctx[0].nome + "";
@@ -432,7 +432,7 @@ var app = (function () {
     		c: function create() {
     			li = element("li");
     			t = text(t_value);
-    			add_location(li, file, 62, 8, 1782);
+    			add_location(li, file, 66, 12, 1864);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -448,7 +448,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(62:4) {#each Listachaves as chave}",
+    		source: "(66:8) {#each Listachaves as chave}",
     		ctx
     	});
 
@@ -456,6 +456,7 @@ var app = (function () {
     }
 
     function create_fragment(ctx) {
+    	let main;
     	let h20;
     	let t1;
     	let form;
@@ -465,8 +466,12 @@ var app = (function () {
     	let t3;
     	let button;
     	let t5;
-    	let h21;
+    	let br0;
+    	let t6;
+    	let br1;
     	let t7;
+    	let h21;
+    	let t9;
     	let ul;
     	let mounted;
     	let dispose;
@@ -480,56 +485,70 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
+    			main = element("main");
     			h20 = element("h2");
     			h20.textContent = "Inserir Nova Chave";
     			t1 = space();
     			form = element("form");
     			label = element("label");
-    			t2 = text("Nome:\n        ");
+    			t2 = text("Nome:\n            ");
     			input = element("input");
     			t3 = space();
     			button = element("button");
     			button.textContent = "Inserir";
     			t5 = space();
+    			br0 = element("br");
+    			t6 = space();
+    			br1 = element("br");
+    			t7 = space();
     			h21 = element("h2");
     			h21.textContent = "Todas as chaves:";
-    			t7 = space();
+    			t9 = space();
     			ul = element("ul");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
-    			add_location(h20, file, 48, 0, 1488);
+    			add_location(h20, file, 49, 4, 1503);
     			attr_dev(input, "type", "text");
-    			attr_dev(input, "class", "svelte-odl272");
-    			add_location(input, file, 53, 8, 1598);
-    			attr_dev(label, "class", "svelte-odl272");
-    			add_location(label, file, 51, 4, 1568);
+    			attr_dev(input, "class", "svelte-1yel809");
+    			add_location(input, file, 54, 12, 1629);
+    			attr_dev(label, "class", "svelte-1yel809");
+    			add_location(label, file, 52, 8, 1591);
     			attr_dev(button, "type", "submit");
-    			attr_dev(button, "class", "svelte-odl272");
-    			add_location(button, file, 56, 4, 1662);
-    			add_location(form, file, 50, 0, 1517);
-    			add_location(h21, file, 59, 0, 1710);
-    			add_location(ul, file, 60, 0, 1736);
+    			attr_dev(button, "class", "svelte-1yel809");
+    			add_location(button, file, 57, 8, 1701);
+    			add_location(form, file, 51, 4, 1536);
+    			add_location(br0, file, 60, 4, 1757);
+    			add_location(br1, file, 61, 4, 1766);
+    			add_location(h21, file, 63, 4, 1780);
+    			add_location(ul, file, 64, 4, 1810);
+    			attr_dev(main, "class", "svelte-1yel809");
+    			add_location(main, file, 48, 4, 1492);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, h20, anchor);
-    			insert_dev(target, t1, anchor);
-    			insert_dev(target, form, anchor);
+    			insert_dev(target, main, anchor);
+    			append_dev(main, h20);
+    			append_dev(main, t1);
+    			append_dev(main, form);
     			append_dev(form, label);
     			append_dev(label, t2);
     			append_dev(label, input);
     			set_input_value(input, /*chave*/ ctx[0].nome);
     			append_dev(form, t3);
     			append_dev(form, button);
-    			insert_dev(target, t5, anchor);
-    			insert_dev(target, h21, anchor);
-    			insert_dev(target, t7, anchor);
-    			insert_dev(target, ul, anchor);
+    			append_dev(main, t5);
+    			append_dev(main, br0);
+    			append_dev(main, t6);
+    			append_dev(main, br1);
+    			append_dev(main, t7);
+    			append_dev(main, h21);
+    			append_dev(main, t9);
+    			append_dev(main, ul);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				if (each_blocks[i]) {
@@ -578,13 +597,7 @@ var app = (function () {
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(h20);
-    			if (detaching) detach_dev(t1);
-    			if (detaching) detach_dev(form);
-    			if (detaching) detach_dev(t5);
-    			if (detaching) detach_dev(h21);
-    			if (detaching) detach_dev(t7);
-    			if (detaching) detach_dev(ul);
+    			if (detaching) detach_dev(main);
     			destroy_each(each_blocks, detaching);
     			mounted = false;
     			run_all(dispose);

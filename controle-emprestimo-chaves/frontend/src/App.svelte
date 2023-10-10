@@ -34,6 +34,12 @@
 </ul>
 
 <style>
+    main{
+        text-align: center;
+        justify-content: center;
+        display: block;
+        background-color: rgb(235, 228, 209);
+    }
     button {
         background-color: rgb(38, 87, 124);
         color: white;
@@ -56,10 +62,9 @@
     }
 
     input {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid rgb(180, 180, 179);
+        padding: 1vh;
+        margin: 3vh;
+        border: 3px solid rgb(38, 87, 124);
         border-radius: 4px;
     }
 </style>

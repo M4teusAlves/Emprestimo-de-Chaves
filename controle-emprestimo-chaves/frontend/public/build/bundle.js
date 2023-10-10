@@ -387,7 +387,11 @@ var app = (function () {
     	return child_ctx;
     }
 
+<<<<<<< HEAD
     // (31:4) {#each Listachaves as chave}
+=======
+    // (66:8) {#each Listachaves as chave}
+>>>>>>> f2b5bdfec314bff6687b741f26bd27ed7333933c
     function create_each_block(ctx) {
     	let li;
     	let t_value = /*chave*/ ctx[1].nome + "";
@@ -397,7 +401,11 @@ var app = (function () {
     		c: function create() {
     			li = element("li");
     			t = text(t_value);
+<<<<<<< HEAD
     			add_location(li, file, 31, 8, 1042);
+=======
+    			add_location(li, file, 66, 12, 1864);
+>>>>>>> f2b5bdfec314bff6687b741f26bd27ed7333933c
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -415,7 +423,11 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
+<<<<<<< HEAD
     		source: "(31:4) {#each Listachaves as chave}",
+=======
+    		source: "(66:8) {#each Listachaves as chave}",
+>>>>>>> f2b5bdfec314bff6687b741f26bd27ed7333933c
     		ctx
     	});
 
@@ -423,8 +435,27 @@ var app = (function () {
     }
 
     function create_fragment(ctx) {
+<<<<<<< HEAD
     	let h2;
     	let t1;
+=======
+    	let main;
+    	let h20;
+    	let t1;
+    	let form;
+    	let label;
+    	let t2;
+    	let input;
+    	let t3;
+    	let button;
+    	let t5;
+    	let br0;
+    	let t6;
+    	let br1;
+    	let t7;
+    	let h21;
+    	let t9;
+>>>>>>> f2b5bdfec314bff6687b741f26bd27ed7333933c
     	let ul;
     	let each_value = /*Listachaves*/ ctx[0];
     	validate_each_argument(each_value);
@@ -436,25 +467,87 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
+<<<<<<< HEAD
     			h2 = element("h2");
     			h2.textContent = "Todas as chaves:";
     			t1 = space();
+=======
+    			main = element("main");
+    			h20 = element("h2");
+    			h20.textContent = "Inserir Nova Chave";
+    			t1 = space();
+    			form = element("form");
+    			label = element("label");
+    			t2 = text("Nome:\n            ");
+    			input = element("input");
+    			t3 = space();
+    			button = element("button");
+    			button.textContent = "Inserir";
+    			t5 = space();
+    			br0 = element("br");
+    			t6 = space();
+    			br1 = element("br");
+    			t7 = space();
+    			h21 = element("h2");
+    			h21.textContent = "Todas as chaves:";
+    			t9 = space();
+>>>>>>> f2b5bdfec314bff6687b741f26bd27ed7333933c
     			ul = element("ul");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
+<<<<<<< HEAD
     			add_location(h2, file, 28, 0, 967);
     			add_location(ul, file, 29, 0, 994);
+=======
+    			add_location(h20, file, 49, 4, 1503);
+    			attr_dev(input, "type", "text");
+    			attr_dev(input, "class", "svelte-1yel809");
+    			add_location(input, file, 54, 12, 1629);
+    			attr_dev(label, "class", "svelte-1yel809");
+    			add_location(label, file, 52, 8, 1591);
+    			attr_dev(button, "type", "submit");
+    			attr_dev(button, "class", "svelte-1yel809");
+    			add_location(button, file, 57, 8, 1701);
+    			add_location(form, file, 51, 4, 1536);
+    			add_location(br0, file, 60, 4, 1757);
+    			add_location(br1, file, 61, 4, 1766);
+    			add_location(h21, file, 63, 4, 1780);
+    			add_location(ul, file, 64, 4, 1810);
+    			attr_dev(main, "class", "svelte-1yel809");
+    			add_location(main, file, 48, 4, 1492);
+>>>>>>> f2b5bdfec314bff6687b741f26bd27ed7333933c
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
+<<<<<<< HEAD
     			insert_dev(target, h2, anchor);
     			insert_dev(target, t1, anchor);
     			insert_dev(target, ul, anchor);
+=======
+    			insert_dev(target, main, anchor);
+    			append_dev(main, h20);
+    			append_dev(main, t1);
+    			append_dev(main, form);
+    			append_dev(form, label);
+    			append_dev(label, t2);
+    			append_dev(label, input);
+    			set_input_value(input, /*chave*/ ctx[0].nome);
+    			append_dev(form, t3);
+    			append_dev(form, button);
+    			append_dev(main, t5);
+    			append_dev(main, br0);
+    			append_dev(main, t6);
+    			append_dev(main, br1);
+    			append_dev(main, t7);
+    			append_dev(main, h21);
+    			append_dev(main, t9);
+    			append_dev(main, ul);
+>>>>>>> f2b5bdfec314bff6687b741f26bd27ed7333933c
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				if (each_blocks[i]) {
@@ -490,9 +583,13 @@ var app = (function () {
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
+<<<<<<< HEAD
     			if (detaching) detach_dev(h2);
     			if (detaching) detach_dev(t1);
     			if (detaching) detach_dev(ul);
+=======
+    			if (detaching) detach_dev(main);
+>>>>>>> f2b5bdfec314bff6687b741f26bd27ed7333933c
     			destroy_each(each_blocks, detaching);
     		}
     	};

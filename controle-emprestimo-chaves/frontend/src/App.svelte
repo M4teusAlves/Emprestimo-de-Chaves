@@ -10,14 +10,18 @@
 
     async function inserirChave() {
         // Verifica se a chave com o mesmo nome já existe na lista
-        if (Listachaves.some(chave => chave.nome === chave.nome)) {
+        if (
+            Listachaves.some(
+                (existingChave) => existingChave.nome === chave.nome
+            )
+        ) {
             alert("Uma chave com esse nome já existe.");
             return; // Impede a inserção da chave duplicada
-        }else if(Listachaves.some(chave=>chave.nome==="")){
-            alert("Por favor digite um nome para a chave.");
-            return; // Impede a inserção da chave duplicada
         }
-        
+        if (chave.nome.trim() === "") {
+            alert("Por favor, digite um nome para a chave.");
+            return; // Impede a inserção da chave vazia
+        }
 
         try {
             const response = await fetch("http://localhost:8081/chaves", {

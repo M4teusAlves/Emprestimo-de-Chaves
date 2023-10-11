@@ -432,7 +432,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (86:12) {:else}
+    // (90:12) {:else}
     function create_else_block(ctx) {
     	let li;
     	let t0;
@@ -452,7 +452,7 @@ var app = (function () {
     			t3 = text(t3_value);
     			t4 = text(" ⛔");
     			attr_dev(li, "class", "svelte-1s67x80");
-    			add_location(li, file, 86, 16, 2812);
+    			add_location(li, file, 90, 16, 2860);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -475,14 +475,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(86:12) {:else}",
+    		source: "(90:12) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (84:12) {#if chave.situacao == "disponivel"}
+    // (88:12) {#if chave.situacao == "disponivel"}
     function create_if_block(ctx) {
     	let li;
     	let t0;
@@ -502,7 +502,7 @@ var app = (function () {
     			t3 = text(t3_value);
     			t4 = text(" ✅");
     			attr_dev(li, "class", "svelte-1s67x80");
-    			add_location(li, file, 84, 16, 2720);
+    			add_location(li, file, 88, 16, 2768);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -525,14 +525,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(84:12) {#if chave.situacao == \\\"disponivel\\\"}",
+    		source: "(88:12) {#if chave.situacao == \\\"disponivel\\\"}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (83:8) {#each Listachaves as chave}
+    // (87:8) {#each Listachaves as chave}
     function create_each_block(ctx) {
     	let if_block_anchor;
 
@@ -576,7 +576,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(83:8) {#each Listachaves as chave}",
+    		source: "(87:8) {#each Listachaves as chave}",
     		ctx
     	});
 
@@ -631,21 +631,21 @@ var app = (function () {
     			}
 
     			attr_dev(h20, "class", "svelte-1s67x80");
-    			add_location(h20, file, 70, 4, 2318);
+    			add_location(h20, file, 74, 4, 2366);
     			attr_dev(input, "type", "text");
     			attr_dev(input, "class", "svelte-1s67x80");
-    			add_location(input, file, 75, 12, 2444);
+    			add_location(input, file, 79, 12, 2492);
     			attr_dev(label, "class", "svelte-1s67x80");
-    			add_location(label, file, 73, 8, 2406);
+    			add_location(label, file, 77, 8, 2454);
     			attr_dev(button, "type", "submit");
     			attr_dev(button, "class", "svelte-1s67x80");
-    			add_location(button, file, 77, 8, 2515);
-    			add_location(form, file, 72, 4, 2351);
+    			add_location(button, file, 81, 8, 2563);
+    			add_location(form, file, 76, 4, 2399);
     			attr_dev(h21, "class", "svelte-1s67x80");
-    			add_location(h21, file, 80, 4, 2571);
-    			add_location(ul, file, 81, 4, 2613);
+    			add_location(h21, file, 84, 4, 2619);
+    			add_location(ul, file, 85, 4, 2661);
     			attr_dev(body, "class", "svelte-1s67x80");
-    			add_location(body, file, 69, 0, 2307);
+    			add_location(body, file, 73, 0, 2355);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -748,12 +748,14 @@ var app = (function () {
 
     	async function inserirChave() {
     		// Verifica se a chave com o mesmo nome já existe na lista
-    		if (Listachaves.some(chave => chave.nome === chave.nome)) {
+    		if (Listachaves.some(existingChave => existingChave.nome === chave.nome)) {
     			alert("Uma chave com esse nome já existe.");
     			return; // Impede a inserção da chave duplicada
-    		} else if (Listachaves.some(chave => chave.nome === "")) {
-    			alert("Por favor digite um nome para a chave.");
-    			return; // Impede a inserção da chave duplicada
+    		}
+
+    		if (chave.nome.trim() === "") {
+    			alert("Por favor, digite um nome para a chave.");
+    			return; // Impede a inserção da chave vazia
     		}
 
     		try {

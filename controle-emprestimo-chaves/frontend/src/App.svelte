@@ -6,7 +6,19 @@
     //Lista para mostrar as chaves
     let Listachaves = [];
 
+    let NomeNovo;
+
     async function inserirChave() {
+        // Verifica se a chave com o mesmo nome já existe na lista
+        if (Listachaves.some(chave => chave.nome === chave.nome)) {
+            alert("Uma chave com esse nome já existe.");
+            return; // Impede a inserção da chave duplicada
+        }else if(Listachaves.some(chave=>chave.nome==="")){
+            alert("Por favor digite um nome para a chave.");
+            return; // Impede a inserção da chave duplicada
+        }
+        
+
         try {
             const response = await fetch("http://localhost:8081/chaves", {
                 method: "POST",
@@ -19,7 +31,7 @@
                 const key = await response.json();
 
                 console.log(key);
-                //Atualizando a lista
+                // Atualizando a lista
                 carregarChaves();
             } else {
                 console.error(
@@ -34,7 +46,9 @@
 
     async function carregarChaves() {
         try {
-            const response = await fetch("http://localhost:8081/chaves"); // Adicione "http://" ao URL
+            const response = await fetch(
+                "http://localhost:8081/chaves/situacao/disponivel"
+            ); // Adicione "http://" ao URL
             if (response.ok) {
                 const chaves = await response.json();
                 Listachaves = chaves;
@@ -67,13 +81,13 @@
     <h2>Lista de Chaves Disponíveis:</h2>
     <ul>
         {#each Listachaves as chave}
-            {#if chave.situacao=="disponivel"}
-                <li>🗝️{chave.nome}  -  Situação: {chave.situacao}  ✅</li>
+            {#if chave.situacao == "disponivel"}
+                <li>🗝️{chave.nome} - Situação: {chave.situacao} ✅</li>
             {:else}
-                <li>🗝️{chave.nome}  -  Situação: {chave.situacao}  ⛔</li>
+                <li>🗝️{chave.nome} - Situação: {chave.situacao} ⛔</li>
             {/if}
         {/each}
-    </ul>                                                       
+    </ul>
 </body>
 
 <style>
@@ -123,7 +137,7 @@
     }
     li {
         list-style: none;
-        margin: 1vh;
+        margin: 2vh;
         font-size: 2em;
     }
 </style>

@@ -432,7 +432,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (72:12) {:else}
+    // (86:12) {:else}
     function create_else_block(ctx) {
     	let li;
     	let t0;
@@ -448,11 +448,11 @@ var app = (function () {
     			li = element("li");
     			t0 = text("🗝️");
     			t1 = text(t1_value);
-    			t2 = text("  -  Situação: ");
+    			t2 = text(" - Situação: ");
     			t3 = text(t3_value);
-    			t4 = text("  ⛔");
-    			attr_dev(li, "class", "svelte-6yk3br");
-    			add_location(li, file, 72, 16, 2290);
+    			t4 = text(" ⛔");
+    			attr_dev(li, "class", "svelte-1s67x80");
+    			add_location(li, file, 86, 16, 2812);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -475,14 +475,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(72:12) {:else}",
+    		source: "(86:12) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (70:12) {#if chave.situacao=="disponivel"}
+    // (84:12) {#if chave.situacao == "disponivel"}
     function create_if_block(ctx) {
     	let li;
     	let t0;
@@ -498,11 +498,11 @@ var app = (function () {
     			li = element("li");
     			t0 = text("🗝️");
     			t1 = text(t1_value);
-    			t2 = text("  -  Situação: ");
+    			t2 = text(" - Situação: ");
     			t3 = text(t3_value);
-    			t4 = text("  ✅");
-    			attr_dev(li, "class", "svelte-6yk3br");
-    			add_location(li, file, 70, 16, 2195);
+    			t4 = text(" ✅");
+    			attr_dev(li, "class", "svelte-1s67x80");
+    			add_location(li, file, 84, 16, 2720);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -525,14 +525,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(70:12) {#if chave.situacao==\\\"disponivel\\\"}",
+    		source: "(84:12) {#if chave.situacao == \\\"disponivel\\\"}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (69:8) {#each Listachaves as chave}
+    // (83:8) {#each Listachaves as chave}
     function create_each_block(ctx) {
     	let if_block_anchor;
 
@@ -576,7 +576,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(69:8) {#each Listachaves as chave}",
+    		source: "(83:8) {#each Listachaves as chave}",
     		ctx
     	});
 
@@ -630,22 +630,22 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(h20, "class", "svelte-6yk3br");
-    			add_location(h20, file, 56, 4, 1795);
+    			attr_dev(h20, "class", "svelte-1s67x80");
+    			add_location(h20, file, 70, 4, 2318);
     			attr_dev(input, "type", "text");
-    			attr_dev(input, "class", "svelte-6yk3br");
-    			add_location(input, file, 61, 12, 1921);
-    			attr_dev(label, "class", "svelte-6yk3br");
-    			add_location(label, file, 59, 8, 1883);
+    			attr_dev(input, "class", "svelte-1s67x80");
+    			add_location(input, file, 75, 12, 2444);
+    			attr_dev(label, "class", "svelte-1s67x80");
+    			add_location(label, file, 73, 8, 2406);
     			attr_dev(button, "type", "submit");
-    			attr_dev(button, "class", "svelte-6yk3br");
-    			add_location(button, file, 63, 8, 1992);
-    			add_location(form, file, 58, 4, 1828);
-    			attr_dev(h21, "class", "svelte-6yk3br");
-    			add_location(h21, file, 66, 4, 2048);
-    			add_location(ul, file, 67, 4, 2090);
-    			attr_dev(body, "class", "svelte-6yk3br");
-    			add_location(body, file, 55, 0, 1784);
+    			attr_dev(button, "class", "svelte-1s67x80");
+    			add_location(button, file, 77, 8, 2515);
+    			add_location(form, file, 72, 4, 2351);
+    			attr_dev(h21, "class", "svelte-1s67x80");
+    			add_location(h21, file, 80, 4, 2571);
+    			add_location(ul, file, 81, 4, 2613);
+    			attr_dev(body, "class", "svelte-1s67x80");
+    			add_location(body, file, 69, 0, 2307);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -744,7 +744,18 @@ var app = (function () {
     	//Lista para mostrar as chaves
     	let Listachaves = [];
 
+    	let NomeNovo;
+
     	async function inserirChave() {
+    		// Verifica se a chave com o mesmo nome já existe na lista
+    		if (Listachaves.some(chave => chave.nome === chave.nome)) {
+    			alert("Uma chave com esse nome já existe.");
+    			return; // Impede a inserção da chave duplicada
+    		} else if (Listachaves.some(chave => chave.nome === "")) {
+    			alert("Por favor digite um nome para a chave.");
+    			return; // Impede a inserção da chave duplicada
+    		}
+
     		try {
     			const response = await fetch("http://localhost:8081/chaves", {
     				method: "POST",
@@ -757,7 +768,7 @@ var app = (function () {
     				const key = await response.json();
     				console.log(key);
 
-    				//Atualizando a lista
+    				// Atualizando a lista
     				carregarChaves();
     			} else {
     				console.error("Erro ao adicionar a chave:", response.statusText);
@@ -769,7 +780,7 @@ var app = (function () {
 
     	async function carregarChaves() {
     		try {
-    			const response = await fetch("http://localhost:8081/chaves"); // Adicione "http://" ao URL
+    			const response = await fetch("http://localhost:8081/chaves/situacao/disponivel"); // Adicione "http://" ao URL
 
     			if (response.ok) {
     				const chaves = await response.json();
@@ -798,6 +809,7 @@ var app = (function () {
     	$$self.$capture_state = () => ({
     		chave,
     		Listachaves,
+    		NomeNovo,
     		inserirChave,
     		carregarChaves
     	});
@@ -805,6 +817,7 @@ var app = (function () {
     	$$self.$inject_state = $$props => {
     		if ('chave' in $$props) $$invalidate(1, chave = $$props.chave);
     		if ('Listachaves' in $$props) $$invalidate(0, Listachaves = $$props.Listachaves);
+    		if ('NomeNovo' in $$props) NomeNovo = $$props.NomeNovo;
     	};
 
     	if ($$props && "$$inject" in $$props) {

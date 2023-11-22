@@ -1,5 +1,5 @@
 {
-  "name": "svelte-app",
+  "name": "frontend",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -20,5 +20,9 @@
   },
   "dependencies": {
     "sirv-cli": "^2.0.0"
-  }
+  },
+  "description": "---",
+  "main": "rollup.config.js",
+  "author": "",
+  "license": "ISC"
 }

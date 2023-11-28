@@ -6,13 +6,13 @@ In this project, we developed a complete web program consisting of a back-end cr
 The software aims to manage the loan of keys, saving all key borrowing and return activities.
 
 ### Home page
-<img src="" width="20%">
+<img src="Doc/README_assets/welcome_pg.png" width="100%">
 
 ### Insert page
-<img src="" width="20%">
+<img src="Doc/README_assets/insert_pg.png" width="100%">
 
 ### Keys list page
-<img src="" width="20%">
+<img src="Doc/README_assets/list_pg.png" width="100%">
 
 ## 🦾 Technologies used
 <div style="display: flex;">

@@ -5,8 +5,7 @@
 
     //Lista para mostrar as chaves
     let Listachaves = [];
-
-    let NomeNovo;
+    let modoEdicao = false;
 
     async function inserirChave() {
         // Verifica se a chave com o mesmo nome já existe na lista
@@ -48,6 +47,38 @@
         }
     }
 
+    // Função para selecionar a chave para edição
+    function selecionarChaveParaEdicao(chaveSelecionada) {
+        chave = { ...chaveSelecionada };
+        modoEdicao = true;
+    }
+
+    async function atualizarChave() {
+        if (chave.nome.trim() === "") {
+            alert("Por favor, digite um nome para a chave.");
+            return; // Impede a atualização com nome vazio
+        }
+
+        try {
+            const response = await fetch(`http://localhost:8081/chaves/${chave.id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(chave),
+            });
+
+            if (response.ok) {
+                alert("Chave atualizada com sucesso!");
+                chave = { nome: "", situacao: "disponivel", status: true };
+                modoEdicao = false;
+                carregarChaves();
+            } else {
+                console.error("Erro ao atualizar a chave:", response.statusText);
+            }
+        } catch (error) {
+            console.error("Erro ao atualizar a chave:", error);
+        }
+    }
+
     async function carregarChaves() {
         try {
             const response = await fetch(
@@ -73,17 +104,26 @@
 </script>
 
 <main>
-    <h2>Inserir Nova Chave</h2>
+    <h2>{modoEdicao ? 'Editar' : 'Inserir'} Chave</h2>
 
-    <form on:submit|preventDefault={inserirChave}>
+    <form on:submit|preventDefault={modoEdicao ? atualizarChave : inserirChave}>
         <label>
             Nome:
             <input type="text" bind:value={chave.nome} />
         </label>
-        <button type="submit">Inserir</button>
+        <button type="submit">{modoEdicao ? 'Atualizar' : 'Inserir'}</button>
     </form>
 
-    
+    <!-- Seção para listar as chaves e editar -->
+    <h2>Lista de Chaves</h2>
+    <ul>
+        {#each Listachaves as chaveItem}
+            <li>
+                🗝️ {chaveItem.nome}
+                <button on:click={() => selecionarChaveParaEdicao(chaveItem)}>Editar</button>
+            </li>
+        {/each}
+    </ul>
 </main>
 
 

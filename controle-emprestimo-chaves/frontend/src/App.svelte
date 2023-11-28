@@ -3,23 +3,28 @@
     //Importando as páginas como se fossem componentes
     import InserirPage from "./pages/InserirPage.svelte";
     import ListarPage from "./pages/ListarPage.svelte";
-    let page = 'InserirPage';
+    import HomePage from "./pages/HomePage.svelte";
+    let page = 'HomePage';
   
     function navigate(to) {
       page = to;
     }
   </script>
+  
   <body>
     <h1>IFTM - Empréstimo de Chaves</h1>
     <nav>
-        <a on:click={() => navigate('InserirPage')}>Inserir Chave</a>
-        <a on:click={() => navigate('ListarPage')}>Lista de Chaves</a>
+      <button on:click={() => navigate('HomePage')}>Início</button>
+        <button on:click={() => navigate('InserirPage')}>Inserir Chave</button>
+        <button on:click={() => navigate('ListarPage')}>Lista de Chaves</button>
       </nav>
       
-      {#if page === 'InserirPage'}
-        <InserirPage />
-      {:else if page === 'ListarPage'}
+      {#if page === 'HomePage'}
+        <HomePage />
+        {:else if page === 'ListarPage'}
         <ListarPage />
+        {:else if page === 'InserirPage'}
+        <InserirPage />
       {/if}
   </body>
 
@@ -42,19 +47,18 @@
       margin-bottom: 20px;
     }
 
-    a{
+    button{
         color:rgb(214, 90, 49);
+        background-color: rgb(34, 40, 49);
         text-decoration: none;
         border: 3px solid rgb(214, 90, 49)  ;
         padding: 15px;
+        transition: background-color 0.3s;
     }
 
-    a:hover{
+    button:hover{
       background-color: rgb(214, 90, 49);
       color: white;
       cursor: pointer;
     }
   </style>
-
-
- 

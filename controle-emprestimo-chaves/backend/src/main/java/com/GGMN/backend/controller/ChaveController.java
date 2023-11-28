@@ -34,6 +34,7 @@ public class ChaveController {
 	@Autowired
 	private ChaveRepository chaveRepository;
 	
+	//Persiste no banco
 	@PostMapping
 	public ResponseEntity<Chave> saveChave(@RequestBody ChaveRecordDto chaveRecordDto) {
 		
@@ -44,12 +45,16 @@ public class ChaveController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(chaveRepository.save(chave));
 	}
 	
+
+	//Busca todas a chaves sem filtro
 	@GetMapping
 	public ResponseEntity<List<Chave>> getAllChaves() {
 		
 		return ResponseEntity.status(HttpStatus.OK).body(chaveRepository.findAll());
 	}
 
+
+	//Filtro de status
 	@GetMapping("/status/{status}")
 	public ResponseEntity<List<Chave>> getPerStauts(@PathVariable(value="status") boolean status) {		
 		
@@ -57,6 +62,7 @@ public class ChaveController {
 		return ResponseEntity.status(HttpStatus.OK).body(chaveRepository.findByStatus(status));
 	}
 	
+	//Filtro Situação
 	@GetMapping("/situacao/{situacao}")
 	public ResponseEntity<List<Chave>> getPerSituacao(@PathVariable(value="situacao") String situacao) {		
 		
@@ -71,6 +77,8 @@ public class ChaveController {
 		return ResponseEntity.status(HttpStatus.OK).body(chaves);
 	}
 
+
+	//Filtro Nome
 	@GetMapping("/nome/{nome}")
 	public ResponseEntity<List<Chave>> getPerNome(@PathVariable(value="nome") String nome) {		
 		
@@ -85,6 +93,7 @@ public class ChaveController {
 		return ResponseEntity.status(HttpStatus.OK).body(chaves);
 	}
 
+	//Alteração
 	@PutMapping("/{id}")
 	public ResponseEntity<Chave> updateChave(@PathVariable(value="id") String id, @RequestBody ChaveRecordDto chaveRecordDto) {		
 		
@@ -97,6 +106,7 @@ public class ChaveController {
 		
 	}
 
+	//"Deleção"
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Chave> deleteChave(@PathVariable(value="id") String id, @RequestBody ChaveRecordDto chaveRecordDto) {		
 		

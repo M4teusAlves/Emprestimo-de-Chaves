@@ -1,4 +1,4 @@
-<h1 align="center">Emprestimo-de-Chaves</h1>
+<h1 align="center">Emprestimo de Chaves</h1>
 
 ## 📖 About the project
 Project for the "Web Applications Development 1" course. <br>
